@@ -130,6 +130,18 @@ name Guest(Default)
 vlan 99
 name Management&Native
 
+interface FastEthernet 0/1
+switchport mode trunk
+switchport trunk allowed vlan all  
+switchport trunk native vlan 10
+exit
+
+interface FastEthernet 0/2
+switchport mode trunk
+
+interface  GigabitEthernet0/1
+switchport mode trunk
+
 interface range FastEthernet0/3-24 
 switchport mode access
 switchport port-security
