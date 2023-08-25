@@ -1,0 +1,331 @@
+S1
+
+enable
+configure terminal
+hostname S1
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+interface range FastEthernet0/3-24 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+interface  GigabitEthernet0/2 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+spanning-tree mode rapid-pvst
+
+
+S2
+
+enable
+configure terminal
+
+hostname S2
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+vlan 10
+name Faculty/Staff
+vlan 20
+name Students
+vlan 30
+name Guest(Default)
+vlan 99
+name Management&Native
+
+
+enable
+configure terminal
+
+interface range FastEthernet0/4-23 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+
+interface  range GigabitEthernet0/1-2
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+
+S3
+enable
+configure terminal
+
+hostname S3
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+
+vlan 10
+name Faculty/Staff
+vlan 20
+name Students
+vlan 30
+name Guest(Default)
+vlan 99
+name Management&Native
+
+
+
+interface range FastEthernet0/19-24  
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+
+interface  range GigabitEthernet0/1-2
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+spanning-tree mode rapid-pvst
+
+
+
+
+S4
+
+enable
+configure terminal
+hostname S4
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+vlan 10
+name Faculty/Staff
+vlan 20
+name Students
+vlan 30
+name Guest(Default)
+vlan 99
+name Management&Native
+
+interface range FastEthernet0/3-24 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+interface  GigabitEthernet0/2 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+spanning-tree mode rapid-pvst
+
+S5
+
+enable
+configure terminal
+
+hostname S5
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+vlan 10
+name Faculty/Staff
+vlan 20
+name Students
+vlan 30
+name Guest(Default)
+vlan 99
+name Management&Native
+
+
+enable
+configure terminal
+
+interface range FastEthernet0/4-23 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+
+interface  range GigabitEthernet0/1-2
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+spanning-tree mode rapid-pvst
+
+
+S6
+enable
+configure terminal
+
+hostname S6
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+
+vlan 10
+name Faculty/Staff
+vlan 20
+name Students
+vlan 30
+name Guest(Default)
+vlan 99
+name Management&Native
+exit
+
+
+interface range FastEthernet0/3-23 
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+
+interface  range GigabitEthernet0/1-2
+switchport mode access
+switchport port-security
+switchport port-security violation restrict
+shutdown 
+exit
+
+spanning-tree mode rapid-pvst
+
+
+Rauter 1
+
+enable
+configure terminal
+
+hostname R1
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+spanning-tree mode rapid-pvst
+
+
+access-list 101 deny tcp any any eq 80
+access-list 101 deny tcp any any eq 443
+access-list 101 deny udp any any eq 53
+access-list 101 deny tcp any any eq 23
+access-list 101 permit ip any any
+
+
+interface range  GigabitEthernet0/1, Serial0/1
+ip access-group 101 in
+exit
+
+
+interface  Serial0/0/0
+ip access-group 101 in
+exit
+
+
+interface  Serial0/0/1
+ip access-group 101 in
+exit
+
+interface  Serial0/1/1
+ip access-group 101 in
+exit
+
+
+show access-lists
+show interfaces status
+
+
+
+
+
+Rauter 2
+
+enable
+configure terminal
+
+hostname R2
+enable secret 1234
+line con 0
+password 1234
+login
+exit
+
+spanning-tree mode rapid-pvst
+
+
+access-list 101 deny tcp any any eq 80
+access-list 101 deny tcp any any eq 443
+access-list 101 deny udp any any eq 53
+access-list 101 deny tcp any any eq 23
+access-list 101 permit ip any any
+
+
+interface range  GigabitEthernet0/1
+ip access-group 101 in
+exit
+
+
+interface  Serial0/0/0
+ip access-group 101 in
+exit
+
+
+interface  Serial0/0/1
+ip access-group 101 in
+exit
+
+interface  Serial0/1/1
+ip access-group 101 in
+exit
+
+
+show access-lists
+show interfaces status
+
+
+
+
+
+
+
+
